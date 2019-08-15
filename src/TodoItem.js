@@ -5,13 +5,14 @@ class TodoItem extends Component {
         super(props);
 
         this.state = {
+            id: this.props.todo.id,
             title: this.props.todo.title,
             completed: this.props.todo.completed,
         }
     }
 
     handleComplete() {
-        this.props.actions.completeTodo(this.props.todo.id);
+        this.props.actions.completeTodo(this.state.id);
 
         this.setState({
             completed: !this.state.completed
@@ -19,14 +20,15 @@ class TodoItem extends Component {
     }
 
     handleDelete() {
-        this.props.actions.deleteTodo(this.props.todo.id);
+        this.props.actions.deleteTodo(this.state.id);
     }
 
     handleTitleChange(event) {
         this.setState({
             title: event.target.value
-        })
+        });
 
+        this.props.actions.editTodo(this.state.id, this.state.title);
     }
 
     render() {
